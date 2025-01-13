@@ -31,7 +31,7 @@ public class DataSaver {
                 walletSB.append(walletDelimiter);
             walletSB.append(uuid.toString());
         }
-        String userString = user.getUsername()+dataDelimiter+user.getPassword()+dataDelimiter+walletSB;
+        String userString = username+dataDelimiter+password+dataDelimiter+walletSB;
 
         String fileName = username + ".usr";
         try (FileWriter file = new FileWriter(BudgetApp.getDataFolderPath()+"/users/"+fileName)) {

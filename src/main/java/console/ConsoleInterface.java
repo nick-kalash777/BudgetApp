@@ -114,7 +114,6 @@ public class ConsoleInterface {
             System.out.println(id + ". " + walletUUIDs.get(i));
         }
         int walletIndex = consoleValidator.getInt()-1;
-        UUID walletUUID = walletUUIDs.get(walletIndex);
         setCurrentWallet(BudgetApp.getWallets().get(walletUUIDs.get(walletIndex)));
         setCurrentUser(user);
         manageWallet();

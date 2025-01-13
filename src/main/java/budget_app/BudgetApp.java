@@ -14,7 +14,6 @@ public class BudgetApp {
     private static final String walletDelimiter = ",";
     private static final String dataFolderPath = System.getProperty("user.dir") + "/data/";
     private static final ConsoleValidator consoleValidator = new ConsoleValidator();
-    private static Wallet currentWallet;
     private static final HashMap<String, User> users = new HashMap<>();
     private static final HashMap<UUID, Wallet> wallets = new HashMap<>();
 
