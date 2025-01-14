@@ -2,6 +2,7 @@ package console;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class ConsoleValidator {
     Scanner scanner = new Scanner(System.in);
@@ -10,10 +11,9 @@ public class ConsoleValidator {
         while (true) {
             try {
                 int input = scanner.nextInt();
-                if (input < 0) throw new InputMismatchException();
                 return input;
             } catch (InputMismatchException e) {
-                System.err.println("Используйте только целые положительные числа.");
+                System.err.println("Используйте только целые числа.");
                 scanner.nextLine();
             }
         }
@@ -27,26 +27,48 @@ public class ConsoleValidator {
         scanner.nextLine();
     }
 
-    public double getDouble() {
+    public double getDouble (boolean noNegatives) {
         while (true) {
             try {
                 double input = scanner.nextDouble();
-                if (input < 0) throw new InputMismatchException();
+                if (noNegatives) {
+                    if (input < 0) {
+                        throw new InputMismatchException();
+                    }
+                }
                 return input;
             } catch (InputMismatchException e) {
-                System.err.println("Используйте только положительные числа.");
+                System.err.println("Используйте только числа.");
                 scanner.nextLine();
             }
         }
     }
 
+    public double getDouble() {
+        return getDouble(false);
+    }
+
     public String getString () {
         return scanner.next();
     }
-    public String getUsername() {
-        if (scanner.hasNextLine()) scanner.nextLine();
+    public UUID getUUID() {
         while (true) {
-            String userName = scanner.nextLine();
+            String input = "";
+            try {
+                input = scanner.next();
+                return UUID.fromString(input);
+            } catch (IllegalArgumentException e) {
+                if (input.equals("0")) return null;
+                System.err.println("Неверный ID. Попробуй еще раз.");
+            }
+        }
+    }
+    public String getUsername() {
+        while (true) {
+            String userName = scanner.next();
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
             if (userName.matches(".*[;%, ].*")) {
                 System.err.println("Запрещенные символы! Введите логин еще раз.");
             } else {

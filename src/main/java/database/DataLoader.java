@@ -47,10 +47,12 @@ public class DataLoader {
             try {
                 String username = userInfo[0];
                 String password = userInfo[1];
-                String[] stringUUIDs = userInfo[2].split(walletDelimiter);
                 ArrayList<UUID> walletUUIDs = new ArrayList<>();
-                for (String stringUUID : stringUUIDs) {
-                    walletUUIDs.add(UUID.fromString(stringUUID));
+                if (userInfo.length > 2) {
+                    String[] stringUUIDs = userInfo[2].split(walletDelimiter);
+                    for (String stringUUID : stringUUIDs) {
+                        walletUUIDs.add(UUID.fromString(stringUUID));
+                    }
                 }
                 new User(username, password, walletUUIDs);
             } catch (Exception e) {

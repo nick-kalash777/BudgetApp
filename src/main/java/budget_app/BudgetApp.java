@@ -3,9 +3,13 @@ package budget_app;
 import console.ConsoleInterface;
 import console.ConsoleValidator;
 import database.DataLoader;
+import database.DataSaver;
 import user.User;
+import wallet.ExpenseCategory;
+import wallet.IncomeCategory;
 import wallet.Wallet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -21,7 +25,7 @@ public class BudgetApp {
         loadUsers();
         loadWallets();
         ConsoleInterface console = new ConsoleInterface();
-        console.authorizeMenu();
+        console.run();
     }
 
     public static String getDataDelimiter() {
@@ -60,5 +64,17 @@ public class BudgetApp {
 
     public static void addWallet(Wallet wallet) {
         wallets.put(wallet.getUUID(), wallet);
+    }
+
+    public static Wallet createNewWallet(User owner) {
+        Wallet newWallet = new Wallet();
+        DataSaver.saveWallet(newWallet);
+        owner.addWallet(newWallet);
+        return newWallet;
+    }
+
+    public static void makeTransfer(Wallet sendingWallet, Wallet receivingWallet, double amount) {
+        sendingWallet.sendTransfer(amount);
+        receivingWallet.receieveTransfer(amount);
     }
 }

@@ -14,6 +14,10 @@ public class DataSaver {
     private static final String dataDelimiter = BudgetApp.getDataDelimiter();
     private static final String walletDelimiter = BudgetApp.getWalletDelimiter();
 
+    public static void saveAll() {
+        saveUsers();
+        saveWallets();
+    }
     public static void saveUsers() {
             BudgetApp.getUsers().values().forEach(DataSaver::saveUser);
     }
