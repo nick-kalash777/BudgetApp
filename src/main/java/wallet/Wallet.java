@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Wallet implements Serializable {
-    private UUID uuid;
+    private final UUID uuid;
 
     private final ArrayList<ExpenseCategory> expenseCategories = new ArrayList<>();
     private final ArrayList<IncomeCategory> incomeCategories = new ArrayList<>();

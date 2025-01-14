@@ -101,11 +101,18 @@ public class ConsoleInterface {
 
         try {
             Wallet chosenWallet = BudgetApp.getWallets().get(wallets.get(choice));
+            if (chosenWallet == null) throw new NullPointerException();
             setCurrentWallet(chosenWallet);
             setMenu(Menu.WALLET);
         } catch (IndexOutOfBoundsException e) {
             System.err.println("Кошелька с таких индексом не существует.");
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
+            System.err.println("К сожалению, этот кошелек был удален, а ваши деньги украдены злостными сотрудниками банка. " +
+                    "Какая досада!");
+
+            currentUser.removeWallet(choice);
+        }
+        catch (Exception e) {
             System.err.println("Что-то пошло серьезно не так...");
             e.printStackTrace();
         }
@@ -306,40 +313,6 @@ public class ConsoleInterface {
             case 3 -> Menu.INCOME_REMOVING;
             default -> Menu.INCOME;
         };
-    }
-
-    private void expensesMenu() {
-        prettySeparator();
-        System.out.println("Общие расходы: " + currentWallet.getExpensesTotal());
-        prettySeparator();
-        System.out.println("Последние пять операций:");
-        int i = 0;
-        ArrayList<Operation> operations = currentWallet.getOperations();
-        if (operations.size() > 5) {
-         i = operations.size() - 5;
-        }
-        for (; i < currentWallet.getOperations().size(); i++) {
-            System.out.println(operations.get(i).toString());
-        }
-        prettySeparator();
-        System.out.println("1. Посмотреть расходы по категориям.");
-        System.out.println("2. Добавить расход.");
-        System.out.println("3. Убрать расход.");
-        System.out.println("0. Назад.");
-
-        int choice = consoleValidator.getInt();
-
-        switch(choice) {
-            case 1: operationsReportMenu(Menu.EXPENSES_REPORT, currentWallet.getExpenseCategories());
-            setMenu(Menu.EXPENSES); break;
-            case 2: operationsAddMenu(Menu.EXPENSES_ADDING, currentWallet.getExpenseCategories());
-            setMenu(Menu.EXPENSES); break;
-            case 3: operationsRemoveMenu(Menu.EXPENSES_REMOVING);
-            setMenu(Menu.EXPENSES); break;
-            case 0: setMenu(Menu.WALLET); return;
-        }
-
-        setMenu(Menu.EXPENSES);
     }
 
     private <T extends WalletCategory> void operationsReportMenu(Menu chosenMenu, ArrayList<T> chosenCategories) {

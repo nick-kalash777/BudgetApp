@@ -3,8 +3,8 @@ package wallet;
 import java.io.Serializable;
 
 public class Operation implements Serializable {
-    private double amount;
-    private WalletCategory category;
+    private final double amount;
+    private final WalletCategory category;
 
     public Operation(WalletCategory category, double amount) {
         this.amount = amount;

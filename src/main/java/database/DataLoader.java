@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class DataLoader {
-    private static String dataDelimiter = BudgetApp.getDataDelimiter();
-    private static String walletDelimiter = BudgetApp.getWalletDelimiter();
+    private static final String dataDelimiter = BudgetApp.getDataDelimiter();
+    private static final String walletDelimiter = BudgetApp.getWalletDelimiter();
     private static File[] loadFolder(String folderName) {
         File folder = new File(BudgetApp.getDataFolderPath() + folderName);
         if (!folder.exists()) {

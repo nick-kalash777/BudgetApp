@@ -5,11 +5,8 @@ import console.ConsoleValidator;
 import database.DataLoader;
 import database.DataSaver;
 import user.User;
-import wallet.ExpenseCategory;
-import wallet.IncomeCategory;
 import wallet.Wallet;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
